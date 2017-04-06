@@ -1,6 +1,30 @@
 #
 # log all uid 0 commands
--a exit,always -F arch=b64 -F euid=0 -S execve
--a exit,always -F arch=b32 -F euid=0 -S execve
-# log changes to sudoers
-# log access to /etc/shadow but uid >=1000
+-a exit,always -F arch=b64 -F euid=0 -S execve -k USER_root
+-a exit,always -F arch=b32 -F euid=0 -S execve -k USER_root
+
+# sudoers
+-w /etc/sudoers -p wa -k CFG_sudoers
+-w /etc/sudoers.d/ -p wa -k CFG_sudoers
+
+# audit log data
+-w /var/log/audit/ -p wa -k LOG_audit
+
+# audit configuration
+-w /etc/audit/ -p wa -k CFG_audit
+-w /etc/libaudit.conf -p wa -k CFG_libaudit.conf
+-w /etc/audisp/ -p wa -k CFG_audisp
+
+# any activity in /etc/security
+-w /etc/security/ -p wa -k CFG_security
+
+# users and groups
+-w /etc/group -p wa -k CFG_group
+-w /etc/passwd -p wa -k CFG_passwd
+-w /etc/gshadow -k CFG_gshadow
+-w /etc/shadow -k CFG_shadow
+
+# SSH config
+-w /etc/ssh/sshd_config -k CFG_sshd_config
+
+#-e 2
