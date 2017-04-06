@@ -1,0 +1,6 @@
+#
+# log all uid 0 commands
+-a exit,always -F arch=b64 -F euid=0 -S execve
+-a exit,always -F arch=b32 -F euid=0 -S execve
+# log changes to sudoers
+# log access to /etc/shadow but uid >=1000
