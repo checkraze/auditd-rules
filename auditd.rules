@@ -1,5 +1,5 @@
 #
-# log all uid 0 commands
+# log all uid 0 executions
 -a exit,always -F arch=b64 -F euid=0 -S execve -k USER_root
 -a exit,always -F arch=b32 -F euid=0 -S execve -k USER_root
 
@@ -7,7 +7,7 @@
 -w /etc/sudoers -p wa -k CFG_sudoers
 -w /etc/sudoers.d/ -p wa -k CFG_sudoers
 
-# audit log data
+# audit logs
 -w /var/log/audit/ -p wa -k LOG_audit
 
 # audit configuration
